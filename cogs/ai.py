@@ -171,26 +171,13 @@ Reply naturally to the latest message.
 
             try:
 
-                response = model.generate_content(
-                    prompt,
-
-                    safety_settings={
-                        HarmCategory.HARM_CATEGORY_HATE_SPEECH:
-                        HarmBlockThreshold.BLOCK_NONE,
-
-                        HarmCategory.HARM_CATEGORY_HARASSMENT:
-                        HarmBlockThreshold.BLOCK_NONE,
-
-                        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT:
-                        HarmBlockThreshold.BLOCK_NONE,
-
-                        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT:
-                        HarmBlockThreshold.BLOCK_NONE,
-                    }
-                )
+                response = await asyncio.to_thread(
+                    model.generate_content,
+                            prompt
+                                )
 
                 # Empty response protection
-                if not hasattr(response, "text"):
+                if not response or not response.text:
 
                     await message.reply(
                         "My brain stopped working 💀"
