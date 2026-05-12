@@ -223,6 +223,6 @@ Reply naturally to the latest message.
                 )
 
 async def setup(bot):
-    await bot.add_cog(ai(bot))
+    await bot.add_cog(AI(bot))
 
 
