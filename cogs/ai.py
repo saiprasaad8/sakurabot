@@ -173,41 +173,53 @@ Reply naturally to the latest message.
 
                 response = await asyncio.to_thread(
                     model.generate_content,
-                            prompt
-                                )
-
-                # Empty response protection
-                if not response or not response.text:
-
-                    await message.reply(
-                        "My brain stopped working 💀"
-                    )
-
-                    return
-
-                reply = response.text[:2000]
-
-                # Save bot reply
-                self.memory[user_id].append(
-                    {
-                        "role": "assistant",
-                        "content": reply
-                    }
+                    prompt
                 )
 
-                # Save memory
-                self.save_memory()
+                print(response)
 
-                # Send reply
-                await message.reply(reply)
+                # Safe extraction
+                reply = ""
 
-            except Exception:
+                if response.candidates:
 
-                traceback.print_exc()
+                    candidate = response.candidates[0]
 
-                await message.reply(
-                    f"Error: {str(e)}"
-                )
+                    if candidate.content.parts:
+
+                        reply = candidate.content.parts[0].text
+
+    # Empty protection
+    if not reply:
+
+        await message.reply(
+            "Gemini replied with emotional damage 💀"
+        )
+
+        return
+
+    reply = reply[:2000]
+
+    # Save memory
+    self.memory[user_id].append(
+        {
+            "role": "assistant",
+            "content": reply
+        }
+    )
+
+    self.save_memory()
+
+    # Send message
+    await message.reply(reply)
+
+except Exception as e:
+
+    traceback.print_exc()
+
+    await message.reply(
+        f"Error: {str(e)}"
+    )
 
 async def setup(bot):
     await bot.add_cog(AI(bot))
