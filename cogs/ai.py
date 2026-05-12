@@ -259,24 +259,14 @@ async def on_ready():
 
         traceback.print_exc()
 
-# ---------------- LOAD COG ---------------- #
+
 
 async def setup(bot):
-
-    await bot.add_cog(
-        AI(bot)
-    )
+    await bot.add_cog(AI(bot))
 
 # ---------------- MAIN ---------------- #
 
-async def main():
 
-    async with bot:
-
-        await setup(bot)
-
-        await bot.start(TOKEN)
 
 # ---------------- START ---------------- #
 
-asyncio.run(main())
