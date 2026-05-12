@@ -40,14 +40,7 @@ AI_CHANNEL_ID = 1503661167984513025
 
 MEMORY_FILE = "data/memory.json"
 
-intents = discord.Intents.default()
-intents.message_content = True
-intents.members = True
 
-bot = commands.Bot(
-    command_prefix="!",
-    intents=intents
-)
 
 # ---------------- AI COG ---------------- #
 
@@ -231,36 +224,9 @@ Reply naturally to the latest message.
 
 # ---------------- READY EVENT ---------------- #
 
-@bot.event
-async def on_ready():
 
-    print(f"{bot.user} is online!")
 
-    # Gemini test
-    try:
-
-        test = model.generate_content(
-            "Say hello briefly"
-        )
-
-        print("Gemini Test Success:")
-        print(test.text)
-
-    except Exception:
-
-        print("Gemini Test Failed:")
-        traceback.print_exc()
-
-# ---------------- ADD COG ---------------- #
-
-async def main():
-
-    async with bot:
-
-        await bot.add_cog(AI(bot))
-
-        await bot.start(TOKEN)
 
 # ---------------- START BOT ---------------- #
 
-asyncio.run(main())
+
