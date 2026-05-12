@@ -27,7 +27,7 @@ genai.configure(
 )
 
 model = genai.GenerativeModel(
-    "models/gemini-1.5-flash-001"
+    "gemini-1.5-flash"
 )
 
 # ---------------- CONFIG ---------------- #
