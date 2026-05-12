@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 
 import os
@@ -22,12 +22,8 @@ os.makedirs("data", exist_ok=True)
 
 # ---------------- GEMINI SETUP ---------------- #
 
-genai.configure(
+client = genai.Client(
     api_key=GEMINI_API_KEY
-)
-
-model = genai.GenerativeModel(
-    "gemini-1.5-flash-8b"
 )
 
 # ---------------- CONFIG ---------------- #
@@ -184,26 +180,16 @@ Reply naturally to the latest message.
             try:
 
                 response = await asyncio.to_thread(
-                    model.generate_content,
-                    prompt
-                )
+                    client.models.generate_content,
+                        model="gemini-2.0-flash",
+                        contents=prompt
+                            )
 
-                print(response)
+                
 
-                reply = ""
+                reply = "response.text"
 
-                if response.candidates:
-
-                    candidate = response.candidates[0]
-
-                    if candidate.content.parts:
-
-                        reply = (
-                            candidate
-                            .content
-                            .parts[0]
-                            .text
-                        )
+                
 
                 # Empty reply protection
                 if not reply:
