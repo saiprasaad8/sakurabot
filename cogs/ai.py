@@ -2,10 +2,7 @@ import discord
 from discord.ext import commands
 import google.generativeai as genai
 from dotenv import load_dotenv
-from google.generativeai.types import (
-    HarmCategory,
-    HarmBlockThreshold
-)
+
 
 import os
 import json
