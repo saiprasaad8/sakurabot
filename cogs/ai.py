@@ -222,11 +222,7 @@ Reply naturally to the latest message.
                     "Gemini lost brain cells 💀"
                 )
 
-# ---------------- READY EVENT ---------------- #
-
-
-
-
-# ---------------- START BOT ---------------- #
+async def setup(bot):
+    await bot.add_cog(ai(bot))
 
 
