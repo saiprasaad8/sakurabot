@@ -206,7 +206,7 @@ Reply naturally to the latest message.
                 traceback.print_exc()
 
                 await message.reply(
-                    "Gemini lost brain cells 💀"
+                    f"Error: {str(e)}"
                 )
 
 async def setup(bot):
