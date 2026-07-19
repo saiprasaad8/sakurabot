@@ -8,8 +8,6 @@ class Logging(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    # ---------------- MESSAGE DELETE ---------------- #
-
     @commands.Cog.listener()
     async def on_message_delete(self, message):
 
@@ -50,7 +48,6 @@ class Logging(commands.Cog):
 
         await channel.send(embed=embed)
 
-    # ---------------- MESSAGE EDIT ---------------- #
 
     @commands.Cog.listener()
     async def on_message_edit(self, before, after):
@@ -97,7 +94,6 @@ class Logging(commands.Cog):
 
         await channel.send(embed=embed)
 
-    # ---------------- MEMBER JOIN ---------------- #
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -119,7 +115,6 @@ class Logging(commands.Cog):
 
         await channel.send(embed=embed)
 
-    # ---------------- MEMBER LEAVE ---------------- #
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
@@ -141,7 +136,6 @@ class Logging(commands.Cog):
 
         await channel.send(embed=embed)
 
-    # ---------------- MEMBER BAN ---------------- #
 
     @commands.Cog.listener()
     async def on_member_ban(self, guild, user):
