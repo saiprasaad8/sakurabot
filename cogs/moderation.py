@@ -8,7 +8,6 @@ class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        # Spam tracking
         self.user_messages = {}
 
     @commands.Cog.listener()
@@ -20,11 +19,10 @@ class Moderation(commands.Cog):
         if not isinstance(message.author, discord.Member):
             return
 
-        # Ignore admins/mods
+
         if message.author.guild_permissions.manage_messages:
             return
 
-        # ---------------- ANTI EVERYONE / HERE ---------------- #
 
         if "@everyone" in message.content or "@here" in message.content:
 
@@ -47,7 +45,6 @@ class Moderation(commands.Cog):
 
             return
 
-        # ---------------- CROSS CHANNEL SPAM ---------------- #
 
         now = time.time()
 
@@ -62,7 +59,6 @@ class Moderation(commands.Cog):
             }
         )
 
-        # Keep only recent messages
         self.user_messages[message.author.id] = [
             msg for msg in self.user_messages[message.author.id]
             if now - msg["time"] <= 15
@@ -70,7 +66,6 @@ class Moderation(commands.Cog):
 
         recent = self.user_messages[message.author.id]
 
-        # Detect same message across channels
         same_msgs = [
             msg for msg in recent
             if msg["content"] == message.content
@@ -92,7 +87,6 @@ class Moderation(commands.Cog):
 
                 await warning.delete(delay=5)
 
-                # Reset user history
                 self.user_messages[message.author.id] = []
 
             except Exception as e:
